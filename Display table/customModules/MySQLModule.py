@@ -24,11 +24,21 @@ class DB:
         x = cursor.fetchall()
         return x
 
-    def getStats(self, *columns):
+    def getStats(self, columns):
         cursor = self.mydb.cursor()
-        cursor.execute("SELECT * FROM stats")
+        selectedColumns = ""
+        index = 0
+        for columnname in columns:
+            if index == 0: 
+                selectedColumns = selectedColumns + columnname
+                index = index + 1
+            else:
+                selectedColumns = selectedColumns + ", " +columnname
         
-
+        print(selectedColumns)
+        cursor.execute("SELECT "+ selectedColumns +" FROM stats")
+        
+        
         if cursor._check_executed() == False:
             return
         
@@ -38,7 +48,7 @@ class DB:
         for i in x:
             newList.append(i)
 
-        
+        print(newList)
         return newList
 
     def getColumns(self):

@@ -4,7 +4,7 @@ from customModules.stringModifier import capitalise
 
 class Table:
      
-    def __init__(self,root):
+    def __init__(self,root, total_rows, total_columns, columns, data):
         
         # code for creating table
         for i in range(total_rows):
@@ -17,7 +17,7 @@ class Table:
                                font=('Arial',16,'bold'), borderwidth=3)
                         self.e.grid(row=i, column=j)
                         
-                        self.e.insert(END, capitalise(columns[j]))  
+                        self.e.insert(END, capitalise( columns[j]))  
                 else:
                         self.e = Entry(root, width=20, fg='blue',
                                font=('Arial',16))
@@ -25,23 +25,24 @@ class Table:
                         self.e.insert(END, data[i][j])       
  # type: ignore                    
                 
+def loadTable(columnNames):
+    
+    
+    
+    mydb=DB()
+    data = mydb.getStats(columnNames)
+    x = len(data)
+    # type: ignore
+    columns = columnNames
 
-mydb=DB()
-data = mydb.getStats("*")
-x = len(data)
- # type: ignore
-columns = mydb.getColumns()
+    total_rows = x
+    total_columns = len(columnNames) 
 
-
-
-total_rows = x
-total_columns = len(columns) 
-
-root = Tk()
-t = Table(root)
-root.title("List of Stats")
-root.resizable(False, False)
-root.mainloop()
+    root = Tk()
+    t = Table(root, total_rows, total_columns, columns, data)
+    root.title("List of Stats")
+    root.resizable(False, False)
+    root.mainloop()
 
 
 
