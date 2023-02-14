@@ -47,10 +47,9 @@ class BasicGUI:
 
         self.btnSubmit = tk.Button(self.root, text="Submit", command=self.LoadTable, font=("Arial", 13)) 
         self.btnSubmit.pack()
-        
-        
-
+                
         self.root.mainloop()
 
 
-BasicGUI()
+if __name__ == "__main__":
+    BasicGUI()
